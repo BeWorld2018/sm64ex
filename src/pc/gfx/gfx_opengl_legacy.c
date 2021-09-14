@@ -25,6 +25,22 @@
 #define GL_GLEXT_PROTOTYPES 1
 #include <SDL2/SDL_opengl.h>
 
+#if defined(__MORPHOS__)
+
+#undef glActiveTexture
+#undef glClientActiveTexture
+#define glActiveTexture glActiveTextureARB
+#define glClientActiveTexture glClientActiveTextureARB
+#define GL_SRC0_RGB                       0x8580
+#define GL_SRC1_RGB                       0x8581
+#define GL_SRC2_RGB                       0x8582
+#define GL_SRC0_ALPHA                     0x8588
+#define GL_SRC1_ALPHA                     0x8589
+#define GL_SRC2_ALPHA                     0x858A
+#define GL_MIRRORED_REPEAT                0x8370
+
+#endif
+
 // redefine this if using a different GL loader
 #define mglGetProcAddress(name) SDL_GL_GetProcAddress(name)
 

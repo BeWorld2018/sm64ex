@@ -11,6 +11,10 @@
 #include <direct.h>
 #endif
 
+#if defined(__MORPHOS__)
+#undef tell
+#endif
+
 #include "macros.h"
 #include "../platform.h"
 #include "fs.h"

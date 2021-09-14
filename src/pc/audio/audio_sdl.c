@@ -14,7 +14,13 @@ static bool audio_sdl_init(void) {
     SDL_AudioSpec want, have;
     SDL_zero(want);
     want.freq = 32000;
+
+    #if defined(__MORPHOS__)
+    want.format = AUDIO_S16SYS;
+    #else
     want.format = AUDIO_S16;
+    #endif
+
     want.channels = 2;
     want.samples = 512;
     want.callback = NULL;
