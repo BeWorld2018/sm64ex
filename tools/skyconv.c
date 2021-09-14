@@ -400,7 +400,10 @@ void combine_skybox(const char *input, const char *output) {
     // every 32nd column is a repeat of the 33rd, and
     // every 32nd row is a repeat of the 33rd, EXCEPT for the last row, but that only matters when
     // expanding the tiles
-    rgba combined[31*H * 31*W2];
+    //rgba combined[31*H * 31*W2]; // this crashes - Cowcat
+    rgba *combined;
+    combined = malloc(31*H *31*W2 * sizeof(rgba));
+
     for (int i = 0; i < H; i++) {
         for (int j = 0; j < W2; j++) {
             int index = table[i*W+j] / 0x800;
