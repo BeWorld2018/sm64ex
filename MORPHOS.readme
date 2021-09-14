@@ -4,10 +4,78 @@ Game needs SDL2 2.0.14
 
 Place N64 rom in root source dir (baserom.us.z64)
  
-Crosscompile:
 
-SDL2 SDK should be in gg:usr/local/include
+************* CROSSCOMPILE:
+
+SDL2 SDK should be in gg/usr/local/include (system depend)
 
 IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
+
+Just do make makefile.morphos-cross
+
+************************************************************************ END OF CROSSCOMPILE
+
+
+
+************* COMPILE ON MORPHOS SYSTEM:
+
+Clumsy as fuck.
+
+Needs full MOS SDK, a MOS Python3 version, hexdump (provided) and the SDL2 2.0.14 SDK (in gg:usr/local/include)
+
+as crosscompile, IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
+
+Rename Python3.version to Python3
+Check hexdump (beware of execute bits) with -v. All should be in System:MorphOS/C
+ 
+
+************************** DO THIS BEFORE MAKE NO MATTER WHAT
+
+makedir build/us_pc ALL
+
+makedir sound/samples
+cd sound/samples
+makedir bowser_organ course_start instruments piranha_music_box sfx_1 sfx_4 sfx_5 sfx_6 sfx_7 sfx_9 sfx_mario sfx_mario_peach sfx_terrain sfx_water
+cd /
+makedir sequences/us
+cd /
+
+makedir textures
+cd textures
+makedir cave effect fire generic grass inside intro_raw machine mountain outside segment2 sky skyboxes snow spooky title_screen_bg water
+cd /
+
+makedir assets/demos
+
+makedir actors/wiggler
+
+***************************
+
+The actual compile:
+
+make makefile.morphos
+
+- 1st stage (extracting):
+
+Some tools are compiled and data extracted from rom.
+If compilation is stopped at this moment, build/us_pc/level_rules.mk has to be deleted and start make procedure again (also if some data fails to
+be extracted due to some mistaken or missing dir). 
+
+Audio extraction takes long time because is dissasembled at this stage too.
+
+- 2nd stage (game compilation):
+
+Principal code is built and data is treated with already compiled commands. Takes more time.
+
+Also if compilation is stopped for whatever reason at this stage, delete build/us_pc/level_rules.mk and start makefile.morphos again (as in 1st stage).
+
+If python3 complains or stops with mario_anim_data, just ignore the messages and start again (probably fixed with new morphos .py scripts).
+
+
+TIME TO COMPILE : Almost 90 minutes.
+
+****************************************** END OF MADNESS
+
+
 
 
