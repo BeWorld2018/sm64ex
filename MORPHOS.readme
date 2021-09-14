@@ -1,0 +1,13 @@
+
+
+Game needs SDL2 2.0.14
+
+Place N64 rom in root source dir (baserom.us.z64)
+ 
+Crosscompile:
+
+SDL2 SDK should be in gg:usr/local/include
+
+IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
+
+
