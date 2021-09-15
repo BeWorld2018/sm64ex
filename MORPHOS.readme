@@ -11,7 +11,7 @@ SDL2 SDK should be in gg/usr/local/include (system depend)
 
 IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
 
-Just do make makefile.morphos-cross
+Just do make -f makefile.morphos-cross
 
 ************************************************************************ END OF CROSSCOMPILE
 
@@ -53,7 +53,7 @@ makedir actors/wiggler
 
 The actual compile:
 
-make makefile.morphos
+make -f makefile.morphos
 
 - 1st stage (extracting):
 
