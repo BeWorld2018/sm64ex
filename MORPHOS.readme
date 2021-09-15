@@ -9,8 +9,6 @@ Place N64 rom in root source dir (baserom.us.z64)
 
 SDL2 SDK should be in gg/usr/local/include (system depend)
 
-IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
-
 Just do make -f makefile.morphos-cross
 
 ************************************************************************ END OF CROSSCOMPILE
@@ -22,8 +20,6 @@ Just do make -f makefile.morphos-cross
 Clumsy as fuck.
 
 Needs full MOS SDK, a MOS Python3 version, hexdump (provided) and the SDL2 2.0.14 SDK (in gg:usr/local/include)
-
-as crosscompile, IMPORTANT: disable SDL_opengl_glext.h include call that is inside SDL_opengl.h ......
 
 Rename Python3.version to Python3
 Check hexdump (beware of execute bits) with -v. All should be in System:MorphOS/C

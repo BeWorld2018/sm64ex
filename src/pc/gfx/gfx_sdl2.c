@@ -14,7 +14,10 @@
 #include <SDL2/SDL_opengl.h>
 #else
 #include <SDL2/SDL.h>
+
+#if !defined(__MORPHOS__)
 #define GL_GLEXT_PROTOTYPES 1
+#endif
 
 #if defined OSX_BUILD || defined (__MORPHOS__)
 #include <SDL2/SDL_opengl.h>
