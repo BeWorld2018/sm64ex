@@ -17,13 +17,14 @@ static bool audio_sdl_init(void) {
 
     #if defined(__MORPHOS__)
     want.format = AUDIO_S16SYS;
+    want.samples = 1024;
     #else
     want.format = AUDIO_S16;
+    want.samples = 512;
     #endif
 
     want.channels = 2;
-    want.samples = 512;
-    want.callback = NULL;
+        want.callback = NULL;
     dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
     if (dev == 0) {
         fprintf(stderr, "SDL_OpenAudio error: %s\n", SDL_GetError());
