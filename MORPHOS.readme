@@ -9,7 +9,12 @@ Place N64 rom in root source dir (baserom.us.z64)
 
 SDL2 SDK should be in gg/usr/local/include (system depend)
 
-Just do make -f makefile.morphos-cross
+Do make -f makefile.morphos-cross
+
+Not finished yet: Copy .png files from MorphOS-extra/ to textures/segment2
+do make clean
+
+rebuild again.
 
 ************************************************************************ END OF CROSSCOMPILE
 
@@ -40,6 +45,8 @@ makedir textures
 cd textures
 makedir cave effect fire generic grass inside intro_raw machine mountain outside segment2 sky skyboxes snow spooky title_screen_bg water
 cd /
+
+Note: Now could be a good moment to copy .png files from MorphOS-extra/ to textures/segment2 (not erased when extracting data).
 
 makedir assets/demos
 
