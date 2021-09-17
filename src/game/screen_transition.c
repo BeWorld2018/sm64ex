@@ -205,6 +205,11 @@ s32 render_textured_transition(s8 fadeTimer, s8 transTime, struct WarpTransition
     return set_and_reset_transition_fade_timer(fadeTimer, transTime);
 }
 
+#if defined (__MORPHOS__)
+#undef TRANS_TYPE_MIRROR
+#define TRANS_TYPE_MIRROR TRANS_TYPE_CLAMP
+#endif
+
 int render_screen_transition(s8 fadeTimer, s8 transType, u8 transTime, struct WarpTransitionData *transData) {
     switch (transType) {
         case WARP_TRANSITION_FADE_FROM_COLOR:
@@ -261,8 +266,19 @@ Gfx *render_cannon_circle_base(void) {
         gSPDisplayList(g++, dl_proj_mtx_fullscreen);
         gDPSetCombineMode(g++, G_CC_MODULATEIDECALA, G_CC_MODULATEIDECALA);
         gDPSetTextureFilter(g++, G_TF_BILERP);
+
+	#if defined (__MORPHOS__)
+
+	gDPLoadTextureBlock(g++, sTextureTransitionID[TEX_TRANS_CIRCLE], G_IM_FMT_IA, G_IM_SIZ_8b, 64, 64, 0,
+            G_TX_CLAMP, G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
+
+	#else
+
         gDPLoadTextureBlock(g++, sTextureTransitionID[TEX_TRANS_CIRCLE], G_IM_FMT_IA, G_IM_SIZ_8b, 32, 64, 0,
             G_TX_WRAP | G_TX_MIRROR, G_TX_WRAP | G_TX_MIRROR, 5, 6, G_TX_NOLOD, G_TX_NOLOD);
+
+	#endif
+
         gSPTexture(g++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
         gSPVertex(g++, VIRTUAL_TO_PHYSICAL(verts), 4, 0);
         gSPDisplayList(g++, dl_draw_quad_verts_0123);
