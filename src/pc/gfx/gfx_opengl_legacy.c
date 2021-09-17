@@ -24,6 +24,9 @@
 
 #if !defined(__MORPHOS__)
 #define GL_GLEXT_PROTOTYPES 1
+#else
+#define glActiveTexture glActiveTextureARB
+#define glClientActiveTexture glClientActiveTextureARB
 #endif
 
 #include <SDL2/SDL_opengl.h>
