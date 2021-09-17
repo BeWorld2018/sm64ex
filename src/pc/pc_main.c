@@ -8,6 +8,10 @@
 
 #include "sm64.h"
 
+#ifdef __MORPHOS__
+unsigned long __stack = 1000000;
+#endif
+
 #include "game/memory.h"
 #include "audio/external.h"
 

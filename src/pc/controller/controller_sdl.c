@@ -252,8 +252,17 @@ static void controller_sdl_read(OSContPad *pad) {
 }
 
 static void controller_sdl_rumble_play(f32 strength, f32 length) {
+#ifndef __MORPHOS__
     if (sdl_haptic)
         SDL_HapticRumblePlay(sdl_haptic, strength, (u32)(length * 1000.0f));
+#else
+    if (sdl_cntrl) {
+        // on SDL2/MorphOS we can't stop rumble, so i force a little duration
+        // Work only with XBox gamepad compatible
+        strength = 1; // force 
+        SDL_GameControllerRumble(sdl_cntrl, (u16)strength*0xFFFF, (u16)strength*0xFFFF, (u32)(length * 75.0f));
+    }
+#endif
 }
 
 static void controller_sdl_rumble_stop(void) {
