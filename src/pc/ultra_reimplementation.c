@@ -22,6 +22,14 @@ s32 osPiStartDma(UNUSED OSIoMesg *mb, UNUSED s32 priority, UNUSED s32 direction,
     return 0;
 }
 
+void osCreateMesgQueue(OSMesgQueue *mq, OSMesg *msgBuf, s32 count) {
+    mq->validCount = 0;
+    mq->first = 0;
+    mq->msgCount = count;
+    mq->msg = msgBuf;
+    return;
+}
+
 void osSetEventMesg(UNUSED OSEvent e, UNUSED OSMesgQueue *mq, UNUSED OSMesg msg) {
 }
 s32 osJamMesg(UNUSED OSMesgQueue *mq, UNUSED OSMesg msg, UNUSED s32 flag) {
