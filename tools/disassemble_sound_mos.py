@@ -599,8 +599,10 @@ def main():
                 if index in index_to_filename:
                     filename = index_to_filename[index]
                     dir = os.path.dirname(filename)
-                    if dir not in created_dirs:
-                        #os.makedirs(dir, exist_ok=True) # crap Cowcat
+                    #if dir not in created_dirs:
+                        #os.makedirs(dir, exist_ok=True) # fails Cowcat
+                    if not os.path.exists(dir):
+                        os.makedirs(dir)
                         created_dirs.add(dir)
                     write_aiff(entry, filename)
         return
@@ -608,7 +610,7 @@ def main():
     # Generate aiff files
     for sample_bank in sample_banks:
         dir = os.path.join(samples_out_dir, sample_bank.name)
-        #os.makedirs(dir, exist_ok=True) # crap Cowcat
+        #os.makedirs(dir, exist_ok=True) # fails Cowcat
 
         offsets = sorted(set(sample_bank.entries.keys()))
         # print(sample_bank.name, len(offsets), 'entries')
@@ -633,7 +635,7 @@ def main():
             write_aiff(entry, filename)
 
     # Generate sound bank .json files
-    #os.makedirs(banks_out_dir, exist_ok=True) # crap Cowcat
+    #os.makedirs(banks_out_dir, exist_ok=True) # fails Cowcat
     for bank_index, bank in enumerate(banks):
         filename = os.path.join(banks_out_dir, bank.name + ".json")
         with open(filename, "w") as out:

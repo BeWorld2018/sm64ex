@@ -181,12 +181,12 @@ def main():
                     offset = locs[lang][0]
                     tbl_file.write(rom[offset : offset + size])
                     tbl_file.close()
-                    args = [
-                        "python3",
-                        "tools/disassemble_sound_mos.py",
-                        ctl_file.name,
-                        tbl_file.name,
-                        "--only-samples",
+                    args = [ # dummy Cowcat
+                        #"python3",
+                        #"tools/disassemble_sound_mos.py",
+                        #ctl_file.name,
+                        #tbl_file.name,
+                        #"--only-samples",
                     ]
                     for (asset, pos, size, meta) in assets:
                         print("extracting", asset)
@@ -229,7 +229,10 @@ def main():
         for (asset, pos, size, meta) in assets:
             print("extracting", asset)
             input = image[pos : pos + size]
-            #os.makedirs(os.path.dirname(asset), exist_ok=True) # Cowcat
+            #os.makedirs(os.path.dirname(asset), exist_ok=True) # fails Cowcat
+            basedir = os.path.dirname(asset)
+            if not os.path.exists(basedir):
+                os.makedirs(basedir)
             if asset.endswith(".png"):
                 with tempfile.NamedTemporaryFile(prefix="asset", delete=False) as png_file:
                     png_file.write(input)
