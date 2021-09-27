@@ -7,52 +7,29 @@ Place N64 rom in root source dir (baserom.us.z64)
 
 ************* CROSSCOMPILE:
 
-SDL2 SDK should be in gg/usr/local/include (system depend)
+SDL2 SDK should be in gg/usr/local/ (system depend)
 
 Do make -f makefile.morphos-cross
 
-Not finished yet: Copy .png files from MorphOS-extra/ to textures/segment2
+Not finished yet: Copy .png files from MorphOS-extra/ to textures/segment2 (the old ones there are replaced)
 do make clean
 
 rebuild again.
 
-************************************************************************ END OF CROSSCOMPILE
+************* END OF CROSSCOMPILE
 
 
 
 ************* COMPILE ON MORPHOS SYSTEM:
 
-Clumsy as fuck.
+Not so clumsy as fuck.
 
-Needs full MOS SDK, a MOS Python3 version, hexdump (provided) and the SDL2 2.0.14 SDK (in gg:usr/local/include)
+Needs full MOS SDK, a MOS Python3 version, hexdump (provided in MorphOS_extra) and the SDL2 2.0.14 SDK (should be in gg:usr/local/)
 
-Rename Python3.version to Python3
-Check hexdump (beware of execute bits) with -v. All should be in System:MorphOS/C
+Check hexdump (beware of execute bits) with -v. Should be copied in System:MorphOS/C
+Rename Python3.(version) to Python3 that is in /C too.
  
-
-************************** DO THIS BEFORE MAKE NO MATTER WHAT
-
-makedir build/us_pc ALL
-
-makedir sound/samples
-cd sound/samples
-makedir bowser_organ course_start instruments piranha_music_box sfx_1 sfx_4 sfx_5 sfx_6 sfx_7 sfx_9 sfx_mario sfx_mario_peach sfx_terrain sfx_water
-cd /
-makedir sequences/us
-cd /
-
-makedir textures
-cd textures
-makedir cave effect fire generic grass inside intro_raw machine mountain outside segment2 sky skyboxes snow spooky title_screen_bg water
-cd /
-
-Note: Now could be a good moment to copy .png files from MorphOS-extra/ to textures/segment2 (not erased when extracting data).
-
-makedir assets/demos
-
-makedir actors/wiggler
-
-***************************
+**** DO THIS BEFORE COMPILE: makedir build/us_pc ALL
 
 The actual compile:
 
@@ -61,23 +38,22 @@ make -f makefile.morphos
 - 1st stage (extracting):
 
 Some tools are compiled and data extracted from rom.
-If compilation is stopped at this moment, build/us_pc/level_rules.mk has to be deleted and start make procedure again (also if some data fails to
-be extracted due to some mistaken or missing dir). 
 
 Audio extraction takes long time because is dissasembled at this stage too.
 
-- 2nd stage (game compilation):
+**** IMPORTANT NOTE: If compilation is stopped, delete build/us_pc/level_rules.mk and do "make -f makefile.morphos" again. ****
 
-Principal code is built and data is treated with already compiled commands. Takes more time.
+- 2nd stage:
 
-Also if compilation is stopped for whatever reason at this stage, delete build/us_pc/level_rules.mk and start makefile.morphos again (as in 1st stage).
+Right after "extracting" finishes it could be a good moment to stop compilation and copy .png files from MorphOS-extra/ to textures/segment2 (the old ones there are replaced).
 
-If python3 complains or stops with mario_anim_data, just ignore the messages and start again (probably fixed with new morphos .py scripts).
+Principal code is built and data is treated. Takes more time.
 
+Also if compilation is stopped or complains for whatever reason at this stage, do the IMPORTANT NOTE above.
 
 TIME TO COMPILE : Almost 90 minutes.
 
-****************************************** END OF MADNESS
+************ END OF MADNESS
 
 
 
