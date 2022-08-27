@@ -25,8 +25,7 @@
 #if !defined(__MORPHOS__)
 #define GL_GLEXT_PROTOTYPES 1
 #else
-#define glActiveTexture glActiveTextureARB
-#define glClientActiveTexture glClientActiveTextureARB
+#include <proto/tinygl.h> // workaround for new/testing tinygl sdk's
 #endif
 
 #include <SDL2/SDL_opengl.h>
