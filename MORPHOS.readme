@@ -1,20 +1,16 @@
 
 
-Game needs SDL2 2.0.14
+Game needs SDL2 (>= 2.0.14) and MOS 3.17 (TinyGL >= 53)
 
+***** FIRST:
 Place N64 rom in root source dir (baserom.us.z64)
  
 
-************* CROSSCOMPILE:
+************* CROSSCOMPILE (ON DEBIAN):
 
 SDL2 SDK should be in gg/usr/local/ (system depend)
 
 Do make -f makefile.morphos-cross
-
-Not finished yet: Copy .png files from MorphOS-extra/ to textures/segment2 (the old ones there are replaced)
-do make clean
-
-rebuild again.
 
 ************* END OF CROSSCOMPILE
 
@@ -24,7 +20,7 @@ rebuild again.
 
 Not so clumsy as fuck.
 
-Needs full MOS SDK, a MOS Python3 version, hexdump (provided in MorphOS_extra) and the SDL2 2.0.14 SDK (should be in gg:usr/local/)
+Needs full MOS SDK, a MOS Python3 version, hexdump (provided in MorphOS_extra) and the SDL2 SDK (should be in gg:usr/local/)
 
 Check hexdump (beware of execute bits) with -v. Should be copied in System:MorphOS/C
 Rename Python3.(version) to Python3 that is in /C too.
@@ -44,8 +40,6 @@ Audio extraction takes long time because is dissasembled at this stage too.
 **** IMPORTANT NOTE: If compilation is stopped, delete build/us_pc/level_rules.mk and do "make -f makefile.morphos" again. ****
 
 - 2nd stage:
-
-Right after "extracting" finishes it could be a good moment to stop compilation and copy .png files from MorphOS-extra/ to textures/segment2 (the old ones there are replaced).
 
 Principal code is built and data is treated. Takes more time.
 

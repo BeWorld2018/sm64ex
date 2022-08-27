@@ -392,11 +392,7 @@ static uint32_t gfx_cm_to_opengl(uint32_t val) {
     if (val & G_TX_CLAMP)
         return GL_CLAMP_TO_EDGE;
 
-    #if !defined(__MORPHOS__)
     return (val & G_TX_MIRROR) ? GL_MIRRORED_REPEAT : GL_REPEAT;
-    #else
-    return GL_REPEAT;
-    #endif
 }
 
 static void gfx_opengl_set_sampler_parameters(int tile, bool linear_filter, uint32_t cms, uint32_t cmt) {
