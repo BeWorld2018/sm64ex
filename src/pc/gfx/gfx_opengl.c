@@ -21,7 +21,9 @@
 
 #include <SDL2/SDL.h>
 
+#ifndef __MORPHOS__
 #define GL_GLEXT_PROTOTYPES 1
+#endif
 #ifdef USE_GLES
 # include <SDL2/SDL_opengles2.h>
 #else
@@ -425,7 +427,28 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(uint32_t shad
     glAttachShader(shader_program, vertex_shader);
     glAttachShader(shader_program, fragment_shader);
     glLinkProgram(shader_program);
+	
+	#ifdef __MORPHOS__
+	GLint status;
+	glGetProgramiv(shader_program, GL_LINK_STATUS, &status);	
+	if (!status){
+		GLchar logg[4096];
+		glGetProgramInfoLog(shader_program, 4096, 0, logg);
+		SDL_Log("Linking shader failed: %s\n", logg);
 
+		SDL_Log("vertex:\n%s\n", sources[0]);
+		SDL_Log("fragment_shader:\n%s\n", sources[1]);
+		SDL_Log("Linking failed\n");
+		
+		if (vertex_shader) {
+			glDeleteShader(vertex_shader);
+		}
+		if (fragment_shader) {
+			glDeleteShader(fragment_shader);
+		}	
+		sys_fatal("Shader compilation failed (see terminal)");
+	}
+	#endif
     size_t cnt = 0;
 
     struct ShaderProgram *prg = &shader_program_pool[shader_program_pool_size++];
@@ -622,10 +645,12 @@ static void gfx_opengl_init(void) {
     // check GL version
     int vmajor, vminor;
     bool is_es = false;
+#ifndef __MORPHOS__
     gl_get_version(&vmajor, &vminor, &is_es);
     if (vmajor < 2 && vminor < 1 && !is_es)
         sys_fatal("OpenGL 2.1+ is required.\nReported version: %s%d.%d", is_es ? "ES" : "", vmajor, vminor);
 
+#endif
     glGenBuffers(1, &opengl_vbo);
     
     glBindBuffer(GL_ARRAY_BUFFER, opengl_vbo);
